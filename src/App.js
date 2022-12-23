@@ -19,9 +19,6 @@ function App() {
     setOutput(rate * input);
   },[info,input,to])
 
-  useEffect(() => {
-    document.title = 'Currency Converter App';
-  }, []);
 
   useEffect(()=> {
       Axios.get(
