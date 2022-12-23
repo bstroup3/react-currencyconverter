@@ -1,4 +1,4 @@
-import React,{ useEffect, useState } from 'react'
+import React,{ useEffect, useState, useCallback} from 'react'
 import './App.css'
 import Axios from 'axios';
 import Dropdown from 'react-dropdown'
@@ -14,6 +14,11 @@ function App() {
   const [options, setOptions] = useState([]);
   const [output, setOutput] = useState(0);
 
+  const convert = useCallback(() => {
+    var rate = info[to];
+    setOutput(rate * input);
+  },[info,input,to])
+
   useEffect(() => {
     document.title = 'Currency Converter App';
   }, []);
@@ -26,15 +31,12 @@ function App() {
         })
       }, [from]);
 
-  useEffect(() => {
-    setOptions(Object.keys(info));
-    convert();
-  })
+      useEffect(() => {
+        setOptions(Object.keys(info));
+        convert();
+      },[info,convert])
 
-  function convert(){
-    var rate = info[to];
-    setOutput(rate * input);
-  }
+
   
   function flip() {
     var temp = from;
